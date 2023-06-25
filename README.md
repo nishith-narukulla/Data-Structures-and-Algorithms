@@ -2,7 +2,7 @@
 
 ## 5 steps
 
-- [ ] Learn at least one Programming Language
+- [x] Learn at least one Programming Language
 - [ ] Learn about Complexities
 - [ ] Learn Data Structure and Algorithms
 - [ ] Practice, practice and practice more
