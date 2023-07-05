@@ -976,6 +976,207 @@ for i in range(2*n-1):
 ```
 ## End of Patterns!
 
+## Basic Math Cocepts
+
+### Extraction of digits
+- modulus with 10 gives the last digit of the number
+    - 5667 % 10  == 7
+    - 5667 % 100 == 67 ...
+```java
+while (num>0) {
+    lastDigit = num % 10;
+    System.out.print(lastDigit + " ");
+    num = num/10;
+    }
+System.out.println("\nFinal num: " + num);
+```
+```python
+while (num>0):
+    lastDigit = num % 10
+    print(lastDigit,end=" ")
+    num = num // 10
+```
+
+### 
+
+### Basic Math Problems
+
+#### **Problem:1 **
+- counting the number digits in a given number
+```java
+while(num>0){
+    num = num/10;
+    count++;
+}
+System.out.println("number od digits: " + count);
+
+// --------------- OR ----------------
+
+// int count = (int)Math.log10(num) + 1;
+// System.out.println(count);
+```
+```python
+while (num>0):
+    num = num // 10
+    count += 1
+print(count)
+# ------------------------------------
+#print( int(math.log10(num) + 1) )
+```
+- **Time Complexity:** O(log10(N))
+    - whenever the logic depends on division TC will be loagrithmic
+    - if divided by 2 TC: O(log2(N))
+    - O(log_base(N)) base --> divisor
+#### **Problem:2**
+- Reverse a number
+    - if it has tailing zeroes ignore them
+    - Example: 10400 --> 401
+
+```java
+static int reverseNumber(int num){
+    int lastDigit;
+    int reverseNumber = 0;
+    while(num>0){
+        lastDigit = num % 10;
+        num = num / 10;
+        reverseNumber = (reverseNumber*10) + lastDigit;
+    }
+    return reverseNumber;
+}
+```
+```python
+def reverseNumber(num):
+    reversedNum = 0
+    while(num):
+        lastDigit = num % 10
+        num = num // 10
+        reversedNum = (reversedNum*10) + lastDigit
+    return reversedNum
+```
+#### **Problem:3**
+- check if the given number is palindrome or not
+```java
+static boolean checkPalindrome(int num){
+    int tempNum = num;
+    int lastDigit;
+    int reverseNumber = 0;
+    while(tempNum>0){
+        lastDigit = tempNum % 10;
+        tempNum = tempNum / 10;
+        reverseNumber = (reverseNumber*10) + lastDigit;
+    }
+    if(num == reverseNumber)
+        return true;
+    else
+        return false;
+}
+```
+```python
+def checkArmstrongNumber(num):
+    tempNum = num
+    reversedNum = 0
+    while(tempNum>0):
+        lastDigit = tempNum % 10
+        tempNum = tempNum // 10
+        reversedNum = (reversedNum*10) + lastDigit
+    if(reversedNum == num):
+        return True
+    else:
+        return False
+```
+#### **Problem:4**
+- check if the given number is armstrong or not
+```java
+static boolean checkArmstrong(int num){
+    int tempNum = num;
+    int lastDigit;
+    int sum = 0;
+    while(tempNum>0){
+        lastDigit = tempNum % 10;
+        sum += Math.pow(lastDigit, 3);
+        tempNum = tempNum / 10;
+    }
+    if(num == sum)
+        return true;
+    else
+        return false;
+}
+```
+```python
+def checkArmstrongNumber(num):
+    tempNum = num
+    sum = 0
+    while(tempNum>0):
+        lastDigit = tempNum % 10
+        sum += pow(lastDigit, 3)
+        tempNum = tempNum // 10
+    if(num == sum):
+        return True
+    else:
+        return False
+```
+#### **Problem:5**
+- find divisors of given number
+```java
+static void printDivisors(int num){
+    System.out.println("divisors of " + num + " are");
+    for(int i=1;i<=num;i++){
+        if(num%i==0)
+            System.out.print(i + " ");
+    }
+}
+// 1 2 3 4 6 9 12 18 36
+```
+```python
+def checkArmstrongNumber(num):
+    for i in range(1,num+1):
+        if num%i ==0:
+            print(i,end=" ")
+```
+- Time Complexity: O(N)
+**Better Solution**
+```java
+static void printDivisors(int num){
+    System.out.println("divisors of " + num + " are");
+    for(int i=1;i<=Math.sqrt(num);i++){
+        if(num%i==0)
+            System.out.print(i + " ");
+            if(num/i != i){
+                System.out.print((num/i) + " ");
+            }
+    }
+}
+// 1 36 2 18 3 12 4 9 7 6
+```
+```python
+def checkArmstrongNumber(num):
+    for i in range(1, int( math.sqrt(num) )+1):
+        if num%i ==0:
+            print(i,end=" ")
+            if num//i != i:
+                print(num//i,end=" ")
+```
+- Time Complexity: O(sqrt(N))
+#### **Problem:6**
+- checking if the given number is prime or not
+```java
+static boolean checkPrime(int num){
+    int count = 0;
+    for(int i=1;i<=Math.sqrt(num);i++){
+        if(num%i==0)
+            if(num/i != i)
+                count++;
+    }
+    if (count == 1)
+        return true;
+    else
+        return false;
+}
+```
+```python
+
+```
+## End Basics of Maths Concepts
 
 
 ## Data Structures
