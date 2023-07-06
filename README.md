@@ -1160,22 +1160,110 @@ def checkArmstrongNumber(num):
 #### **Problem:6**
 - checking if the given number is prime or not
 ```java
-static boolean checkPrime(int num){
-    int count = 0;
-    for(int i=1;i<=Math.sqrt(num);i++){
-        if(num%i==0)
-            if(num/i != i)
+    static boolean checkPrime(int num){
+        int count = 0;
+        for(int i=1;i<=Math.sqrt(num);i++){
+            if(num%i==0)
                 count++;
+                if(num/i != i)
+                    count++;
+        }
+        if (count == 2)
+            return true;
+        else
+            return false;
     }
-    if (count == 1)
-        return true;
-    else
-        return false;
+```
+```python
+def checkPrime(num):
+    count = 0
+    for i in range(1, int( math.sqrt(num) )+1):
+        if num%i ==0:
+            count += 1
+            if num//i != i:
+                count += 1
+    if count == 2:
+        return True
+    else:
+        return False
+```
+#### **Problem:7**
+```java
+static int getGcd(int num1, int num2){
+    int gcd = 1;
+    for(int i=1;i<=Math.min(num1, num2);i++){
+        if (num1%i == 0 && num2%i == 0){
+            gcd = i;
+        }
+    }
+    return gcd;
 }
 ```
 ```python
-
+def getGcd(num1,num2):
+    gcd = 1
+    for i in range(1, min(num1, num2)+1):
+        if num1%i == 0 and num2%i == 0:
+            gcd = i
+    return gcd
 ```
+- Time Complexity: O(min(num1, num2))
+
+**Another Solution**
+```java
+static int getGcd(int num1, int num2){
+    int gcd = 1;
+    for(int i =Math.min(num1, num2);i>=1;i--){
+        if (num1%i == 0 && num2%i == 0){
+            gcd = i;
+            break;
+        }
+    }
+    return gcd;
+}
+```
+```python
+def getGcd(num1,num2):
+    gcd = 1
+    for i in range(min(num1,num2),0,-1):
+        if num1%i == 0 and num2%i == 0:
+            gcd = i
+            break
+    return gcd
+```
+- Time complexity: O(min(num1,num2))
+
+**Better Solution**
+- gcd(a,b) = gcd(a-b,b) if a>b --> Euclidian theory
+- gcd(a,b) = gcd(a%b,b) if a>b
+
+```java
+static int getGcd(int num1, int num2){
+    while(num1>0 && num2>0){
+        if(num1>num2)
+            num1 = num1%num2;
+        else
+            num2 = num2%num1;
+    }
+    if (num1 == 0)
+        return num2;
+    else
+        return num1;
+}
+```
+```python
+def getGcd(num1,num2):
+    while(num1>0 and num2>0):
+        if(num1>num2):
+            num1 = num1%num2
+        else:
+            num2 = num2%num1
+    if num1==0:
+        return num2
+    else:
+        return num1
+```
+- Time complexity: O(log_base(min(num1,num2)))
 ## End Basics of Maths Concepts
 
 
