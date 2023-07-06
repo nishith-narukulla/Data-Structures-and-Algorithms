@@ -1266,6 +1266,185 @@ def getGcd(num1,num2):
 - Time complexity: O(log_base(min(num1,num2)))
 ## End Basics of Maths Concepts
 
+## Recursion
+- function calls itself
+- until a specified condition is met
+
+### Basic Recursion Problems
+
+#### **Problem:1**
+- print 1 to N linearly
+```java
+static void printLinearNumbers(int count, int n){
+    if (count>n)
+        return;
+    System.out.println(count);
+    printReverseNumbers(++count, n);
+}
+```
+```python
+def printLinearNumbers(count,n):
+    if count>n:
+        return
+    print(count)
+    printLinearNumbers(count+1,n)
+```
+#### **Problem:2**
+- print 1 to N in reverseOrder
+```java
+static void printReverseNumbers(int count, int n){
+    if (count<1)
+        return;
+    System.out.println(count);
+    printReverseNumbers(--count, n);
+}
+```
+```python
+def printLinearNumbers(count,n):
+    if count<1:
+        return
+    print(count)
+    printLinearNumbers(count-1,n)
+```
+#### **Problem:3**
+- print 1 to N using BackTracking
+```java
+static void printNumbers(int count, int n){
+    if (count<1)
+        return;
+        printNumbers(count-1, n);
+        System.out.println(count);
+}
+```
+```python
+def printLinearNumbers(count,n):
+    if count<1:
+        return
+    printLinearNumbers(count-1,n)
+    print(count)
+```
+#### **Problem:4**
+- Find the sum of N elements
+
+**Parameterised way**
+```java
+static void sumOfN(int sum, int n){
+    if(n<1){
+        System.out.println("Sum: " + sum);
+        return;
+    }
+    sumOfN(sum+n, n-1);
+}
+```
+```python
+def sumOfN(sum,n):
+    if n<1:
+        print(sum)
+        return
+    sumOfN(sum+n,n-1)
+```
+**Functional Way**
+```java
+static int sumOfN(int n){
+    if(n<1){
+        return 0;
+    }
+    return n+sumOfN(n-1);
+}
+```
+```python
+def sumOfN(n):
+    if n<1:
+        return 0
+    return n+sumOfN(n-1)
+```
+#### **Problem:5**
+- Factorial of a number
+```java
+// Parameterised way
+static void factorial(int product, int n){
+    if(n<=1){
+        System.out.println(product);
+        return;
+    }
+    factorial(product*n, n-1);
+}
+```
+```java
+// Functional way
+static int factorial(int n){
+    if(n<=1){
+        return 1;
+    }
+    return n*factorial(n-1);
+}
+```
+#### **Problem:6**
+- reversing an array
+```java
+static void reverseArray(int i,int[] arr, int n){
+    if (i>=n/2)
+        return;
+    System.out.println("i: "+i);
+    System.out.println("Before operation: " + Arrays.toString(arr));
+    swap(arr, n, i);
+    System.out.println("After Operation: " + Arrays.toString(arr));
+    reverseArray(i+1, arr, n);
+}
+static int[] swap(int[] arr, int n,int pos){
+    System.out.println("Before swapping: " + Arrays.toString(arr));
+    int temp = arr[pos];
+    arr[pos] = arr[n-pos-1];
+    arr[n-pos-1] = temp;
+    System.out.println("After swapping: "+ Arrays.toString(arr));
+    return arr;
+}
+```
+```python
+def reverseArray(pos, arr, length):
+    if (pos >= length//2):
+        return
+    swap(pos, arr, length)
+    reverseArray(pos+1, arr, length)
+
+def swap(pos, arr, length):
+    arr[pos], arr[length-pos-1] = arr[length-pos-1], arr[pos]
+```
+#### **Problem:7**
+- palindrome check on a string
+```java
+static boolean checkPalindrome(int pos, String str, int length){
+    if (pos >= length/2)
+        return true;
+    if(str.charAt(pos) != str.charAt(length-pos-1))
+        return false;
+    return checkPalindrome(pos+1, str, length);
+}
+```
+```python
+def checkPalindrome(pos, string, length):
+    if pos >= length//2:
+        return True
+    if string[pos] != string[length-pos-1]:
+        return False
+    return checkPalindrome(pos+1, string, length)
+```
+#### **Problem:8**
+- Finding Nth fibonacci number
+```java
+static int findFibonacci(int n){
+    if (n<=1)
+        return n;
+    return findFibonacci(n-1) + findFibonacci(n-2);
+}
+```
+```python
+def findFibonacci(n):
+    if n<=1: return n
+    return findFibonacci(n-1) + findFibonacci(n-2)
+```
+- Time Complexity: ~O(2^n) Exponential
+## End of Recursion
 
 ## Data Structures
 
