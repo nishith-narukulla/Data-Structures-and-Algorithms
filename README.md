@@ -33,7 +33,7 @@
 ### Space complexity
 - the amount of space required to execute successfully the functionalities of the code
 - basically extra space/Auxiliary space used by your code
-
+## End of Complexities
 ## Patterns
 - Learn patterns for better understanding of loops
 
@@ -997,10 +997,7 @@ while (num>0):
     num = num // 10
 ```
 
-### 
-
 ### Basic Math Problems
-
 #### **Problem:1 **
 - counting the number digits in a given number
 ```java
@@ -1446,6 +1443,248 @@ def findFibonacci(n):
 - Time Complexity: ~O(2^n) Exponential
 ## End of Recursion
 
+## Hashing
+- it can be done by three ways
+    - Division method
+    - Folding Method
+    - Mod square method
+- collision: when multiple values goes into the same hash place
+### Basic Problems
+#### **Problem:1**
+- frequency of an element in array
+
+**Classical way**
+```java
+static int count(int[] arr, int n, int val){
+    int count = 0;
+    for(int i=0;i<n;i++){
+        if(arr[i] == val)
+            count++;
+    }
+    return count;
+}
+```
+```python
+def frequency(arr,n,val):
+    count = 0
+    for i in range(n):
+        if arr[i] == val:
+            count += 1
+    return f"Count: {count}"
+```
+- Time complexity: O(N) for one element
+- for K elements O(K*N)
+
+**Using Hashing**
+```java
+public static void main(String[] a){
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int arr[] = new int[n];
+    for(int i=0;i<n;i++){
+        int value = sc.nextInt();
+        arr[i] = value;
+    }
+    int[] hash = frequency(arr, n);
+    System.out.println(Arrays.toString(hash));
+}
+
+static int[] frequency(int[] arr, int n){
+    int hash[] = new int[n+1];
+    for(int i=0;i<n;i++){
+        hash[arr[i]]++;
+    }
+    return hash;
+}
+```
+```python
+def frequency(arr,n):
+    hash = [0]*(n+1)
+    for i in range(n):
+        hash[arr[i]] += 1
+    return hash
+
+n = int(input("Enter a number: "))
+arr = [0]*n
+for i in range(n):
+    num = int(input())
+    arr[i] = num
+print(frequency(arr,n))
+```
+#### **Problem:2**
+- frequency of characters in given string containing only lowerCase letters
+
+**Classic approach**
+```java
+static int frequencyOfChar(String s, int n, char ch){
+    int count = 0;
+    for(int i=0;i<n;i++){
+        if(s.charAt(i) == ch)
+            count++;
+    }
+    return count;
+}
+```
+```python
+def frequencyOfChar(s,n,ch):
+    count = 0
+    for i in range(n):
+        if(s[i] == ch):
+            count += 1
+    return count
+```
+- Time complexity: O(K*N) finding for K elements
+
+**Using Hashing**
+```java
+public static void main(String[] a){
+    Scanner sc = new Scanner(System.in);
+    String s = sc.nextLine().toLowerCase();
+    int hash[] = frequencyOfChar(s, s.length(), 'n');
+    System.out.println(Arrays.toString(hash));
+    
+    for(int i =0;i<s.length();i++){
+        System.out.println("Frequency of " + s.charAt(i) + " is: " + hash[s.charAt(i) - 'a']);
+    }
+}
+
+static int[] frequencyOfChar(String s, int n, char ch){
+    int hash[] = new int[25];
+    for(int i=0;i<n;i++){
+        hash[s.charAt(i)-'a']++;
+    }
+    return hash;
+}
+```
+```python
+def frequencyOfChar(s,n):
+    hash = [0]*26
+    for i in range(n):
+        hash[ord(s[i])-ord('a')] += 1
+    return hash
+
+s = input()
+print(frequencyOfChar(s.lower(),len(s)))
+```
+#### **Problem:3**
+- frequency of characters in a string containing lower and upper case
+```java
+public static void main(String[] a){
+    Scanner sc = new Scanner(System.in);
+    String s = sc.nextLine();
+    int hash[] = frequencyOfChar(s, s.length(), 'n');
+    // System.out.println(Arrays.toString(hash));
+    
+    for(int i =0;i<s.length();i++){
+        System.out.println("Frequency of " + s.charAt(i) + " is: " + hash[s.charAt(i)]);
+    }
+}
+
+static int[] frequencyOfChar(String s, int n, char ch){
+    int hash[] = new int[256];
+    for(int i=0;i<n;i++){
+        hash[s.charAt(i)]++;
+    }
+    return hash;
+}
+```
+```python
+def frequencyOfChar(s,n):
+    hash = [0]*256
+    for i in range(n):
+        hash[ord(s[i])] += 1
+    return hash
+
+s = input()
+hash = frequencyOfChar(s, len(s))
+for i in range(len(s)):
+    print(f"Frequency of {s[i]} is: {hash[ord(s[i])]}")
+```
+### Solving the above problems using HashMap
+#### **Problem:1**
+- to mitigate the issue of hashing using array i.e,
+  size of the hash array
+-  we can use HashMaps
+```java
+public static void main(String[] a){
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int arr[] = new int[n];
+    
+    for(int i=0;i<n;i++){
+        arr[i] = sc.nextInt();
+    }
+    HashMap<Integer, Integer> hash = frequency(arr, n);
+    for(Map.Entry<Integer, Integer> map: hash.entrySet()){
+        System.out.println(map.getKey() + " --> " + map.getValue());
+    }
+}
+
+static HashMap frequency(int[] arr, int n){
+    HashMap<Integer, Integer> hash = new HashMap<>();
+    
+    for(int i=0;i<n;i++){
+        if(!(hash.containsKey(arr[i])))
+            hash.put(arr[i], 1);
+        else{
+            Integer prev = hash.get(arr[i]);
+            hash.put(arr[i], prev+1);
+        }
+    }
+    return hash;
+}
+```
+```python
+def frequency(arr,n):
+    dict_ = {}
+    for i in range(n):
+        if arr[i] in dict_.keys():
+            dict_[arr[i]] += 1
+        else:
+            dict_[arr[i]] = 1
+    return dict_
+
+n = int(input("Enter number: "))
+arr = [0]*n
+for i in range(n):
+    arr[i] = int(input("Enter value: "))
+print(frequency(arr, n))
+```
+#### **Problem:2**
+```java
+public static void main(String[] a){
+    
+    String s = "Nishith";
+    int n = s.length();
+    HashMap<Character, Integer> hash = frequency(s, n);
+    for(Map.Entry<Character, Integer> map: hash.entrySet()){
+        System.out.println(map.getKey() + " --> " + map.getValue());
+    }
+}
+
+static HashMap<Character, Integer> frequency(String s, int n){
+    HashMap<Character, Integer> hash = new HashMap<>();
+    
+    for(int i=0;i<n;i++){
+        if(!(hash.containsKey(s.charAt(i))))
+            hash.put(s.charAt(i), 1);
+        else{
+            Integer prev = hash.get(s.charAt(i));
+            hash.put(s.charAt(i), prev+1);
+        }
+    }
+    return hash;
+}
+```
+
+- Time Complexities:
+    - **Un-ordered map** suggested
+        - Storing:  O(1) [avg, best], O(N) [worst case] --> happens very very rarely
+        - Fetching: O(1) [avg, best], O(N) [worst case] -->            "" 
+    - **Ordered map**
+        - storing:  O(log(N)) [best, avg, worst]
+        - Fetching: O(log(N)) [best, avg, worst]
+## End of Hashing
 ## Data Structures
 
 - Arrays
