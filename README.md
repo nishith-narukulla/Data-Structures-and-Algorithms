@@ -1685,6 +1685,231 @@ static HashMap<Character, Integer> frequency(String s, int n){
         - storing:  O(log(N)) [best, avg, worst]
         - Fetching: O(log(N)) [best, avg, worst]
 ## End of Hashing
+
+## Sorting
+
+### Selection Sort
+- selecting minimums and placing them at front
+
+[13, 46, 24, 52, 20, 9] --> findMin(0 to n-1) = 9 --> swap(9, 13)
+
+[9, 46, 24, 52, 20, 13] --> findMin(1 to n-1) = 13 --> swap(13, 46)
+
+[9, 13, 24, 52, 20, 46] --> findMin(2 to n-1) = 20 --> swap(20, 24)
+
+[9, 13, 20, 52, 24, 46] --> findMin(3 to n-1) = 24 --> swap(24, 52)
+
+[9, 13, 20, 24, 52, 46] --> findMin(4 to n-1) = 46 --> swap(46, 52)
+
+Sorted --> [9, 13, 20, 24, 46, 52]
+
+#### Selection Sort Program
+```java
+public static void main(String[] a){
+    
+    int arr[] = {13, 46, 24, 52, 20, 9};
+    selectionSort(arr, 6);
+    for(int val: arr)
+        System.out.println(val);
+}
+static void selectionSort(int[] arr, int n){
+    for(int i=0;i<=n-2;i++){
+        int min = i;
+        for(int j=i;j<=n-1;j++){
+            if(arr[j] < arr[min]){
+                min = j;
+            }
+            }
+        swap(arr, i, min);
+    }
+}
+
+static void swap(int[] arr, int n1, int n2){
+    int temp = arr[n1];
+    arr[n1] = arr[n2];
+    arr[n2] = temp;
+}
+```
+```python
+def swap(arr, i, min):
+    arr[i], arr[min] = arr[min], arr[i]
+def selectionSort(arr,n):
+    for i in range(n-1):
+        min = i
+        for j in range(i,n):
+            if(arr[j] < arr[min]):
+                min = j
+        swap(arr, i, min)
+    return arr
+
+arr = [13, 46, 24, 52, 20, 9]
+print(selectionSort(arr, 6))
+```
+- Time Complexity: O(N^2) [best, avg, worst]
+
+### Bubble Sort
+- pushes maximums to the last i.e. lighter ones comes front
+- compare adjacent elements if(order)  = do nothing
+                            if(!order) = swap them
+
+Initial: [13, 46, 24, 52, 20, 9]
+
+Round:1  [13, 46, 24, 52, 20, 9] --> compare(13,46) = do nothing
+         [13, 24, 46, 52, 20, 9] --> compare(46,24) = swap(46,24)
+         [13, 24, 46, 52, 20, 9] --> compare(46,52) = do nothing
+         [13, 24, 46, 20, 52, 9] --> compare(52,20) = swap(52,20)
+         [13, 24, 46, 20, 9, 52] --> compare(52,9)  = swap(52, 9) --> 52 comes to bottom
+
+Round:2  [13, 24, 46, 20, 9, 52] --> compare(13,24) = do nothing
+         [13, 24, 46, 20, 9, 52] --> compare(24,46) = do nothing
+         [13, 24, 20, 46, 9, 52] --> compare(46,20) = swap(46,20)
+         [13, 24, 20, 9, 46, 52] --> compare(46, 9) = swap(46, 9) --> 46 comes to bottom
+
+Round:3  [13, 24, 20, 9, 46, 52] --> compare(13,24) = do nothing
+         [13, 20, 24, 9, 46, 52] --> compare(24,20) = swap(24,20)
+         [13, 20, 9, 24, 46, 52] --> compare(24, 9) = swap(24, 9) --> 24 comes to bottom
+
+Round:4  [13, 20, 9, 24, 46, 52] --> compare(13,20) = do nothing
+         [13, 9, 20, 24, 46, 52] --> compare(20, 9) = swap(20, 9) --> 20 comes to bottom
+
+Round:5  [13, 9, 20, 24, 46, 52] --> compare(13, 9) = swap(13, 9) --> 13 comes to bottom
+
+Sorted: [9, 13, 20, 24, 46, 52]
+
+#### Bubble Sort program
+```java
+public static void main(String[] a){
+    
+    int arr[] = {13, 46, 24, 52, 20, 9};
+    bubbleSort(arr, 6);
+    System.out.println("Sorted Array: " + Arrays.toString(arr));
+}
+
+static void bubbleSort(int[] arr, int n){
+    for(int i=0;i<n;i++){
+        int swapped = 0;
+        // System.out.println("i: " + i);
+        for(int j=0;j<n-i-1;j++){
+            // System.out.println("j: " + j);
+            // System.out.println(arr[j] + " " + arr[j+1]);
+            if(arr[j] > arr[j+1]){
+                // System.out.println("Before swapping " + Arrays.toString(arr));
+                swap(arr, j, j+1);
+                // System.out.println("After swapping " + Arrays.toString(arr));
+                swapped = 1;
+            }
+        }
+        // if no swapping done
+        // means it is already sorted
+        // no more looping [Best Case Optimisation]
+        if (swapped == 0)
+            break;
+    }
+}
+
+static void swap(int[] arr, int n1, int n2){
+    int temp = arr[n1];
+    arr[n1] = arr[n2];
+    arr[n2] = temp;
+}
+```
+```python
+def swap(arr, i, min):
+    arr[i], arr[min] = arr[min], arr[i]
+
+def bubbleSort(arr,n):
+    for i in range(n):
+        for j in range(n-i-1):
+            if(arr[j] > arr[j+1]):
+                swap(arr, j, j+1)
+    return arr
+
+arr = [13, 46, 24, 52, 20, 9]
+print(bubbleSort(arr, 6))
+```
+- Time Complexity: O(N) [avg, worst]
+                   O(N) [best case]
+
+### Insertion Sort
+- takes an element and place it at correct position
+- check before elements if(order)  = do nothing
+                        if(!order) = swap
+
+Initial: [13, 46, 24, 52, 20, 9]
+
+Round:1 [**13**, 46, 24, 52, 20, 9] --> compare(13, no before) = do nothing
+
+Round:2 [13, **46**, 24, 52, 20, 9] --> compare(46,13) = do nothing
+
+Round:3 [13, 46, **24**, 52, 20, 9] --> compare(24,46) = swap(24,46)
+        [13, **24**, 46, 52, 20, 9] --> compare(24,13) = do nothing
+
+Round:4 [13, 24, 46, **52**, 20, 9] --> compare(52,46) = do nothing
+
+Round:5 [13, 24, 46, 52, **20**, 9] --> compare(20,52) = swap(20,52)
+        [13, 24, 46, **20**, 52, 9] --> compare(20,46) = swap(20,46)
+        [13, 24, **20**, 46, 52, 9] --> compare(20,24) = swap(20,24)
+        [13, **20**, 24, 46, 52, 9] --> compare(20,13) = do nothing
+
+Round:6 [13, 20, 24, 46, 52, **9**] --> compare(9, 52) = swap(9, 52)
+        [13, 20, 24, 46, **9**, 52] --> compare(9, 46) = swap(9, 46)
+        [13, 20, 24, **9**, 46, 52] --> compare(9, 24) = swap(9, 24)
+        [13, 20, **9**, 24, 46, 52] --> compare(9, 20) = swap(9, 20)
+        [13, **9**, 20, 24, 46, 52] --> compare(9, 13) = swap(9, 13)
+        [**9**, 13, 20, 24, 46, 52] --> compare(9, no before) = do nothing
+
+Sorted: **[9, 13, 20, 24, 46, 52]**
+
+#### Insertion Sort program
+```java
+public static void main(String[] a){
+    
+    int arr[] = {13, 46, 24, 52, 20, 9};
+    insertionSort(arr, 6);
+    System.out.println("Sorted Array: " + Arrays.toString(arr));
+}
+
+static void insertionSort(int[] arr, int n){ // 13, 46, 24, 52, 20, 9
+    for(int i=0;i<n;i++){
+        // System.out.println("i: " + i);
+        for(int j=i;j>0;j--){
+            // System.out.println("j: " + j);
+            // System.out.println(arr[j-1] + " " + arr[j]);
+            if(arr[j] < arr[j-1]){
+                // System.out.println("Before swapping " + Arrays.toString(arr));
+                swap(arr, j, j-1);
+                // System.out.println("After swapping " + Arrays.toString(arr));
+            }
+        }
+    }
+}
+
+static void swap(int[] arr, int n1, int n2){
+    int temp = arr[n1];
+    arr[n1] = arr[n2];
+    arr[n2] = temp;
+}
+```
+```python
+def swap(arr, i, min):
+    arr[i], arr[min] = arr[min], arr[i]
+
+def insertionSort(arr,n):
+    for i in range(n):
+        for j in range(i,0,-1):
+            if(arr[j] < arr[j-1]):
+                swap(arr, j, j-1)
+    return arr
+
+arr = [13, 46, 24, 52, 20, 9]
+print(insertionSort(arr, 6))
+```
+- Time Complexity: O(N^2) [avg, worst]
+                   O(N)   [best case]
+
+### 
+
+## End of Sorting
 ## Data Structures
 
 - Arrays
