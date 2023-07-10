@@ -1907,7 +1907,114 @@ print(insertionSort(arr, 6))
 - Time Complexity: O(N^2) [avg, worst]
                    O(N)   [best case]
 
-### 
+### Merge Sort
+- Divide & Merge
+
+#### Merge Sort Program
+```java
+public static void main(String[] a){
+    
+    int arr[] = {13, 46, 24, 52, 20, 9}; // 13, 46, 24, 52, 20, 9
+    mergeSort(arr, 0, 5);
+    System.out.println("Sorted Array: " + Arrays.toString(arr));
+}
+
+static void mergeSort(int[] arr, int low, int high){
+
+    // Base condition
+    if(low>=high){
+        return;
+    }
+
+    int mid = (low+high)/2;
+    mergeSort(arr, low, mid);
+    mergeSort(arr, mid+1, high);
+    merge(arr, low, mid, high);
+}
+
+static void merge(int[] arr, int low, int mid, int high){
+    int left = low;
+    int right = mid+1;
+    List<Integer> temp = new ArrayList<Integer>();
+    while(left<=mid && right<=high){
+        if(arr[left] <= arr[right]){
+            temp.add(arr[left]);
+            left++;
+        }
+        else{
+            temp.add(arr[right]);
+            right++;
+        }
+    }
+    
+    // if left array still exists
+    while(left<=mid){
+        temp.add(arr[left]);
+        left++;
+    }
+
+    // if right array still exists
+    while(right<=high){
+        temp.add(arr[right]);
+        right++;
+    }
+
+    // put elements to original array
+    for(int i=low;i<=high;i++)
+        arr[i] = temp.get(i-low);
+}
+```
+```python
+def mergeSort(arr, low, high):
+
+    # Base Condition
+    if(low>=high):
+        return
+
+    mid = (low+high)//2
+    mergeSort(arr, low, mid)
+    mergeSort(arr, mid+1, high)
+    merge(arr, low, mid, high)
+
+    return arr
+
+def merge(arr, low, mid, high):
+    left = low
+    right = mid+1
+    temp = []
+
+    while(left<=mid and right<=high):
+        if(arr[left] < arr[right]):
+            temp.append(arr[left])
+            left += 1
+        else:
+            temp.append(arr[right])
+            right += 1
+    
+    # if left array exists
+    while(left<=mid):
+        temp.append(arr[left])
+        left += 1
+    
+    # if right array exists
+    while(right<=high):
+        temp.append(arr[right])
+        right += 1
+    
+    # Add temp to Array
+    for i in range(low, high+1):
+        arr[i] = temp[i-low]
+
+# Main
+arr = [13, 46, 24, 52, 20, 9]
+print(mergeSort(arr, 0, 5))
+```
+- Time complexity: O(N * log(N)) [best, avg, worst]
+    - O(N) for comparision in merge
+    - O(log(N)) for dividing array to smaller arrays
+- Space complexities: O(N) [worst]
+
+
 
 ## End of Sorting
 ## Data Structures
